@@ -1,0 +1,68 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  emailVerified Boolean @default(false)
+  password  String?    
+  displayName String?
+  firstName String
+  lastName  String
+  provider  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  refreshToken String?
+  accessToken String?
+  resettoken String?
+  resttokenexpirytime DateTime? @default(now())
+  UserData String?
+}
+model UserData{
+  id  String @id @map("_id") @db.ObjectId 
+  userid String  
+  surveyList String 
+} 
+model SurveyList {
+  id String @id @map("_id") @db.ObjectId
+  userid String
+  surveyObject String[]
+
+}
+
+model SurveyObject {
+   id      String   @id @default(auto()) @map("_id") @db.ObjectId
+   surveyListId String
+   created DateTime @default(now())
+   totalResponse Int @default(0)
+   title String @default("Survey")
+   questionList String[] @default([])
+   answerList String[] @default([])
+   lastUpdateByServer DateTime 
+}
+
+model SurveyObjectObject{
+    id  String  @id @default(auto()) @map("_id") @db.ObjectId
+    surveyObjectObjectId String
+    type String @default("multichoice")
+    options String[] @default([])
+}
+
+model Answer{
+    id  String  @id @default(auto()) @map("_id") @db.ObjectId
+    createdon DateTime @default(now())
+    usertype String @default("guest")
+    email String?
+    phone String?
+    Name String?
+    additionalInfo String[] @default([])
+}
+
+

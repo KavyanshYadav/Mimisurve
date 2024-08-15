@@ -1,0 +1,27 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 60
+      arrivalRate: 10
+  defaults:
+    headers:
+      content-type: "application/json"
+  processor: "./artillery-functions.js"
+  http:
+    timeout: 20000
+scenarios:
+  - beforeRequest:
+      - email
+    flow:
+      - post:
+          url: "/api/auth/register"
+          json:
+            email: "{{email}}"
+            name: "kavuydsd udsud"
+            password: "POkemons7&!!"
+          capture:
+            - json: "$.responseField"  # Adjust this JSON path to capture the desired field
+              as: "responseField"
+          expect:
+            - statusCode: 200
+      - log: "Response field value: {{ responseField }}"  # Log the captured value

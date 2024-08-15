@@ -1,0 +1,21 @@
+.Action{
+    background-color: transparent;
+    
+
+}
+
+.Action:hover{
+    background-color: rgb(24, 24, 24);
+    transition: all 0.2s;
+}
+
+.Bottom{
+    background-color: transparent;
+    margin-top: auto;
+    padding: 100px;
+}
+
+.Bottom:hover{
+    background-color: rgb(24, 24, 24);
+    transition: all 0.2s;
+}
